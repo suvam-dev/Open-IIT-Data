@@ -1,0 +1,35 @@
+paths:
+  raw_data_dir: "raw_data"
+  ps2_data_dir: "raw_data"
+  shared_data_dir: "raw_data"
+  artifacts_dir: "artifacts/models"
+  outputs_dir: "outputs"
+  reports_dir: "reports"
+
+business_constants:
+  # Data-derived parameters
+  p_find_borrower_trace: 0.228      # Derived from 175/766 historical skip traces
+  p_meet_borrower_visit: 0.216      # Derived from 1206/5578 historical field visits
+  avg_trace_cost_inr: 104           # Derived from historical skip traces
+  
+  # Assumed parameters (to be updated with lender unit economics in production)
+  p_recovery_given_rpc: 0.05        # Likelihood of collection after successful reach
+  collection_fraction: 0.10         # Average fraction of balance recovered
+  call_cost_inr: 5.0                # Telecom & agent cost per dial attempt
+  field_visit_cost_inr: 200.0       # Field agent visit dispatch cost
+
+calibration:
+  method: "isotonic"
+  dummy_weight: 0.02                # Bayesian pseudo-count weight to prevent hard 0/1 probabilities
+  base_rpc_prior: 0.448             # Baseline population RPC rate
+
+health_thresholds:
+  t_high: 0.70                      # Excellent: high confidence, precision > 95%
+  t_opt: 0.40                       # Good: optimal operational F1 threshold
+  t_low: 0.15                       # Fair: callable positive EV boundary
+  # Below t_low is categorized as Poor
+
+cv:
+  n_splits: 5
+  random_state: 42
+  stratified: true

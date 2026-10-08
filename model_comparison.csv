@@ -1,0 +1,4 @@
+Model,AUC (raw),AUC (calibrated),Brier (raw),Brier (calibrated)
+Logistic Regression (calibrated),0.9016,0.9024,0.1267,0.1141
+Random Forest (calibrated),0.9774,0.9756,0.0555,0.0524
+HistGradBoost (calibrated),0.9794,0.978,0.0476,0.0492
